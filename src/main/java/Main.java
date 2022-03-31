@@ -3,7 +3,9 @@ import java.net.URL;
 import java.nio.file.StandardOpenOption;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) throws SQLException, IOException {
@@ -17,6 +19,7 @@ public class Main {
         for (int i=0; i<description.size(); i++){
             urls.addAll(youTubeConnect.extractUrls(description.get(i)));
         }
+
         for (int i=0; i<urls.size(); i++){
             fileWriter.write(String.valueOf(urls.get(i)));
             fileWriter.write("\n");
@@ -35,6 +38,7 @@ public class Main {
             File file1 = new File("C://Users//Админ//Documents//badLinks.txt");
             file1.createNewFile();
             FileWriter fileWriter1 = new FileWriter(file1);
+            Collections.sort(linkArrayList, new MyComparator ());
             for (int i=0; i<linkArrayList.size(); i++){
                 if ((linkArrayList.get(i).getTitle()==null) || (linkArrayList.get(i).getTitle()=="") || (linkArrayList.get(i).getTitle()=="null") ){
                     fileWriter1.write(linkArrayList.get(i).toString());
@@ -46,9 +50,12 @@ public class Main {
                     fileWriter0.flush();
                 }
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
 //
 //        System.out.println(urls.size());
 //        System.out.println(urls);

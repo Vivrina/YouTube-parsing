@@ -27,7 +27,7 @@ public class YouTubeConnect {
         }).setApplicationName("APP_ID").build();
     }
     public String getPlayListId(String channelId) throws IOException {
-        String apiKey = "AIzaSyCfFVa6rhsW4YLKLvO3QLv9o_h5yE3dIKY";
+        String apiKey = "";
         YouTube.Channels.List request = youtube.channels().list("contentDetails").setId(channelId).setKey(apiKey);
         ChannelListResponse response = request.execute();
         //response.getItems().indexOf("uploads");
@@ -37,7 +37,7 @@ public class YouTubeConnect {
     }
     public ArrayList<String> getDescription(ArrayList<String> videoIds) throws IOException {
         ArrayList<String> descriptions = new ArrayList<>();
-        String apiKey = "AIzaSyCfFVa6rhsW4YLKLvO3QLv9o_h5yE3dIKY";
+        String apiKey = "";
         YouTube.Videos.List request = youtube.videos().list("snippet").setId(videoIds.get(0)).setKey(apiKey);
         VideoListResponse response = request.execute();
         descriptions.add(response.getItems().get(0).getSnippet().getDescription());
@@ -69,7 +69,7 @@ public class YouTubeConnect {
     }
 
     public ArrayList<String> getVideosIds(String playlistId, String pageToken) throws IOException {
-        String apiKey = "AIzaSyCfFVa6rhsW4YLKLvO3QLv9o_h5yE3dIKY"; // you can get it from https://console.cloud.google.com/apis/credentials
+        String apiKey = ""; // you can get it from https://console.cloud.google.com/apis/credentials
         ArrayList<String> videoIds = new ArrayList<>();
         YouTube.PlaylistItems.List request = youtube.playlistItems()
                 .list("contentDetails")

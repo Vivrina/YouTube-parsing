@@ -6,11 +6,10 @@ import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Set;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.Map.Entry;
 
 public class LinkProcessing {
 
@@ -32,7 +31,9 @@ public class LinkProcessing {
             //System.out.println(hashMap.get(url));
             str = bufferedReader.readLine();
         }
+
         HashMap<URL, Integer> insta = new HashMap<>();
+        HashMap<URL, Integer> insta0 = new HashMap<>();
         ArrayList<Link> arrayList = new ArrayList<>();
         hashMap.forEach((key, value) -> {
             if (String.valueOf(key).contains("instagram")) {
@@ -41,6 +42,24 @@ public class LinkProcessing {
                 arrayList.add(new Link(key, value));
             }
         });
+        File file = new File("C://Users//Админ//Documents//insta.txt");
+
+            file.createNewFile();
+
+            FileWriter fileWriter = new FileWriter(file);
+
+        insta.entrySet().stream()
+                .sorted(Map.Entry.<URL, Integer>comparingByValue().reversed())
+                .forEach((value) -> {
+                    try {
+                        fileWriter.write(String.valueOf(value.getKey() + " Встречается: " + value.getValue() + " раз"));
+                        fileWriter.write("\n");
+                        fileWriter.flush();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                });
 //        hashMap.forEach((key,value) -> {
 //            System.out.println(key + " - " + value);
 //            arrayList.add(new Link(key, value));
